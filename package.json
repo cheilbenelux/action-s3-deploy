@@ -1,0 +1,27 @@
+{
+  "name": "action-s3-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:prod": "npm run build && npm run pack",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "pack": "ncc build lib",
+    "test": "jest",
+    "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/github": "^2.1.1",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
+    "@zeit/ncc": "^0.22.1",
+    "eslint": "^6.8.0"
+  }
+}
