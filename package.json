@@ -11,7 +11,7 @@
     "lint": "eslint src/**/*.ts",
     "pack": "ncc build lib",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
+    "all": "npm run build && npm run pack && npm test"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,13 @@
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "@zeit/ncc": "^0.22.1",
-    "eslint": "^6.8.0"
+    "aws-sdk": "^2.654.0",
+    "eslint": "^6.8.0",
+    "module-alias": "^2.2.2",
+    "prettier": "^2.0.4",
+    "typescript": "^3.8.3"
+  },
+  "_moduleAliases": {
+    "@helpers": "dist/helpers/"
   }
 }
