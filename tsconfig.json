@@ -2,8 +2,11 @@
   "compilerOptions": {
     /* Enable incremental compilation */
     "module": "commonjs", // add this
-    "target": "es6", // and this /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
+
     "outDir": "./lib",
+
+    "target": "es2015",
+
     "allowJs": false,
     "strict": true,
     "skipLibCheck": true,
