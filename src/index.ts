@@ -4,24 +4,23 @@ import { writeToServer } from './helpers/writeToServer'
 import fs from 'fs'
 
 // Get project package.json
-const projectDir = '/github'
-const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
-const projectJson = JSON.parse(projectPackageData.toString())
-const packageInfo = projectJson
+// const projectDir = '/github'
+// const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
+// const projectJson = JSON.parse(projectPackageData.toString())
+// const packageInfo = projectJson
 
 // Get project specific settings
-const {
-  deploySettings: { bucket, serverPath: path, buildFiles },
-  name: projectName,
-} = packageInfo
+// const {
+//   deploySettings: { bucket, serverPath: path, buildFiles },
+//   name: projectName,
+// } = packageInfo
 
 const { accessKeyId, secretAccessKey } = process.env
 
 const run = async (): Promise<void> => {
   core.debug(JSON.stringify(process.env))
-  core.debug(packageInfo)
 }
-
+run()
 // try {
 //   writeToServer()
 //   // `who-to-greet` input defined in action metadata file
