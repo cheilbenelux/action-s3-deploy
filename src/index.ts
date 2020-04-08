@@ -4,10 +4,10 @@ import { writeToServer } from './helpers/writeToServer'
 import fs from 'fs'
 
 // Get project package.json
-// const projectDir = '/github'
-// const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
-// const projectJson = JSON.parse(projectPackageData.toString())
-// const packageInfo = projectJson
+const projectDir = 'GITHUB_WORKSPACE'
+const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
+const projectJson = JSON.parse(projectPackageData.toString())
+const packageInfo = projectJson
 
 // Get project specific settings
 // const {
@@ -18,9 +18,7 @@ import fs from 'fs'
 const { accessKeyId, secretAccessKey } = process.env
 
 const run = async (): Promise<void> => {
-  core.debug(JSON.stringify(process.env))
-  const nameToGreet = core.getInput('who-to-greet')
-  console.log(`Hello ${nameToGreet}!`)
+  core.debug(projectJson)
 }
 run()
 // try {

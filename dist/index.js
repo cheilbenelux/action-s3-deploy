@@ -372,13 +372,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
+const fs_1 = __importDefault(__webpack_require__(747));
 // Get project package.json
-// const projectDir = '/github'
-// const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
-// const projectJson = JSON.parse(projectPackageData.toString())
-// const packageInfo = projectJson
+const projectDir = 'GITHUB_WORKSPACE';
+const projectPackageData = fs_1.default.readFileSync(`${projectDir}/package.json`);
+const projectJson = JSON.parse(projectPackageData.toString());
+const packageInfo = projectJson;
 // Get project specific settings
 // const {
 //   deploySettings: { bucket, serverPath: path, buildFiles },
@@ -386,9 +390,7 @@ const core = __importStar(__webpack_require__(470));
 // } = packageInfo
 const { accessKeyId, secretAccessKey } = process.env;
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
-    core.debug(JSON.stringify(process.env));
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
+    core.debug(projectJson);
 });
 run();
 // try {
@@ -412,6 +414,13 @@ run();
 /***/ (function(module) {
 
 module.exports = require("path");
+
+/***/ }),
+
+/***/ 747:
+/***/ (function(module) {
+
+module.exports = require("fs");
 
 /***/ })
 
