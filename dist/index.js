@@ -377,6 +377,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
+// import github from '@actions/github'
+// import { writeToServer } from './helpers/writeToServer'
 const fs_1 = __importDefault(__webpack_require__(747));
 // Get project package.json
 const projectDir = process.env.GITHUB_WORKSPACE;
