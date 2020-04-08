@@ -4,7 +4,7 @@ import { writeToServer } from './helpers/writeToServer'
 import fs from 'fs'
 
 // Get project package.json
-const projectDir = 'GITHUB_WORKSPACE'
+const projectDir = process.env.GITHUB_WORKSPACE
 const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
 const projectJson = JSON.parse(projectPackageData.toString())
 const packageInfo = projectJson

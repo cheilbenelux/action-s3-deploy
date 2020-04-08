@@ -379,7 +379,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const fs_1 = __importDefault(__webpack_require__(747));
 // Get project package.json
-const projectDir = 'GITHUB_WORKSPACE';
+const projectDir = process.env.GITHUB_WORKSPACE;
 const projectPackageData = fs_1.default.readFileSync(`${projectDir}/package.json`);
 const projectJson = JSON.parse(projectPackageData.toString());
 const packageInfo = projectJson;
