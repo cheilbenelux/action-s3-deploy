@@ -30,5 +30,8 @@
   },
   "_moduleAliases": {
     "@helpers": "dist/helpers/"
+  },
+  "devDependencies": {
+    "@types/node": "^13.11.0"
   }
 }

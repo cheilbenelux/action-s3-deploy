@@ -1,4 +1,4 @@
-const fs = require('file-system')
+import fs from 'fs'
 import AWS from 'aws-sdk'
 
 import { getAllFiles, cherryPickFiles } from './getFiles'
