@@ -387,6 +387,8 @@ const core = __importStar(__webpack_require__(470));
 const { accessKeyId, secretAccessKey } = process.env;
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     core.debug(JSON.stringify(process.env));
+    const nameToGreet = core.getInput('who-to-greet');
+    console.log(`Hello ${nameToGreet}!`);
 });
 run();
 // try {

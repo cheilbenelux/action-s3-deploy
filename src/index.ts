@@ -19,6 +19,8 @@ const { accessKeyId, secretAccessKey } = process.env
 
 const run = async (): Promise<void> => {
   core.debug(JSON.stringify(process.env))
+  const nameToGreet = core.getInput('who-to-greet')
+  console.log(`Hello ${nameToGreet}!`)
 }
 run()
 // try {
