@@ -10,6 +10,7 @@ interface ProjectOptions {
   path: string
   buildFiles: string[]
 }
+console.log('writing to server')
 
 const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
 
@@ -39,6 +40,7 @@ export const writeToServer = (
     : [...getAllFiles('js'), ...getAllFiles('css')]
 
   files.forEach((file) => {
+    console.log('key', formatKey(projectName, path, file, staging))
     const ContentType =
       file.type === 'css' ? 'text/css' : 'application/javascript'
     const params = {
