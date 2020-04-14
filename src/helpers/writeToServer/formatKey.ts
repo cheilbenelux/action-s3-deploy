@@ -11,8 +11,12 @@ export const formatKey = (
   file: File,
   branch: string,
 ): string => {
+  // Optionally, projects can have different paths on our server
+  let serverLocation = serverPath ? serverPath : `latest/`
+
   // eg: 'src/serif-locator/latest/js/app.js`
-  const newPath = branch === 'master' ? serverPath : `${serverPath}/${branch}`
+  const newPath =
+    branch === 'master' ? serverLocation : `${serverLocation}/${branch}`
 
   const fullPath: string =
     `src/` +
