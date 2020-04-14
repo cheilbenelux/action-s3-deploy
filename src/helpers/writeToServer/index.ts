@@ -17,7 +17,7 @@ console.log('writing to server')
 
 export const writeToServer = (
   projectOptions: ProjectOptions,
-  staging: boolean,
+  branch: string,
 ) => {
   console.log('1')
   try {
@@ -42,15 +42,13 @@ export const writeToServer = (
     const files = buildFiles
       ? cherryPickFiles(buildFiles)
       : [...getAllFiles('js'), ...getAllFiles('css')]
-    console.log('the files are', files)
-    console.log('3 and last in before the foreach')
+
     files.forEach((file) => {
-      console.log('key', formatKey(projectName, path, file, staging))
       const ContentType =
         file.type === 'css' ? 'text/css' : 'application/javascript'
       const params = {
         Bucket: bucket,
-        Key: formatKey(projectName, path, file, staging),
+        Key: formatKey(projectName, path, file, branch),
         Body: fs.createReadStream(file.path),
         ACL: 'public-read',
         ContentType,

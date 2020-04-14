@@ -9,7 +9,9 @@ const projectPackageData = fs.readFileSync(`${projectDir}/package.json`)
 const projectJson = JSON.parse(projectPackageData.toString())
 const packageInfo = projectJson
 
-const staging = process.env.GITHUB_REF === 'refs/heads/staging'
+const branch = process.env.GITHUB_REF
+  ? process.env.GITHUB_REF.replace('refs/heads/', '')
+  : ''
 
 // Get project specific settings
 const {
@@ -19,16 +21,16 @@ const {
 
 // const { accessKeyId, secretAccessKey } = process.env
 
-const run = async (): Promise<void> => {
-  console.log('heyy')
-  console.log(projectJson)
-  console.log(process.env.GITHUB_REF)
-  // core.debug(projectJson)
-}
+// const run = async (): Promise<void> => {
+//   console.log('heyy')
+//   console.log(projectJson)
+//   console.log(process.env.GITHUB_REF)
+//   // core.debug(projectJson)
+// }
 
 try {
   // run()
-  writeToServer({ bucket, path, buildFiles, projectName }, staging)
+  writeToServer({ bucket, path, buildFiles, projectName }, branch)
   //   //   // `who-to-greet` input defined in action metadata file
   //   //   // const nameToGreet = core.getInput('who-to-greet')
   //   //   // console.log(`Hello ${nameToGreet}!`)

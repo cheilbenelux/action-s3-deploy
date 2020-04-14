@@ -9,11 +9,10 @@ export const formatKey = (
   projectName: string,
   serverPath: string,
   file: File,
-  staging: boolean,
+  branch: string,
 ): string => {
-  console.log('making a key')
   // eg: 'src/serif-locator/latest/js/app.js`
-  const newPath = staging ? `${serverPath}/staging` : serverPath
+  const newPath = branch === 'master' ? serverPath : `${serverPath}/${branch}`
 
   const fullPath: string =
     `src/` +
