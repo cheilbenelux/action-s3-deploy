@@ -5,7 +5,7 @@
 
     "outDir": "./lib",
 
-    "target": "esNext",
+    "target": "es2015",
 
     "allowJs": false,
     "strict": true,
