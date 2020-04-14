@@ -7,26 +7,20 @@ import { formatKey } from './formatKey'
 interface ProjectOptions {
   bucket: string
   projectName: string
-  path: string
+  serverPath: string
   buildFiles: string[]
 }
-console.log('writing to server')
-
-// Get from secrets
-// const { ACCESSKEYID, secretAccessKey } = require('./settings')
 
 export const writeToServer = (
   projectOptions: ProjectOptions,
   branch: string,
 ) => {
-  console.log('1')
   try {
-    const { bucket, projectName, path, buildFiles } = projectOptions
+    const { bucket, projectName, serverPath, buildFiles } = projectOptions
     const streamOptions = {
       partSize: 10 * 1024 * 1024, // 10 MB
       queueSize: 10,
     }
-    console.log('2 in the try')
 
     const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
 
@@ -48,11 +42,12 @@ export const writeToServer = (
         file.type === 'css' ? 'text/css' : 'application/javascript'
       const params = {
         Bucket: bucket,
-        Key: formatKey(projectName, path, file, branch),
+        Key: formatKey({ projectName, serverPath, file, branch }),
         Body: fs.createReadStream(file.path),
         ACL: 'public-read',
         ContentType,
       }
+
       s3.upload(params, streamOptions, (err, data) => {
         if (err) {
           console.log('Error', err)

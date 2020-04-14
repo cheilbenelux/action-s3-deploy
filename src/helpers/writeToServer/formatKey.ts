@@ -1,16 +1,22 @@
 const path = require('path')
 
-type File = {
-  path: string
-  type: 'css' | 'js'
+// type File = {
+//   path: string
+//   type: 'css' | 'js'
+// }
+
+interface Inputs {
+  projectName: string
+  serverPath?: string
+  file: {
+    path: string
+    type: 'css' | 'js'
+  }
+  branch: string
 }
 
-export const formatKey = (
-  projectName: string,
-  serverPath: string,
-  file: File,
-  branch: string,
-): string => {
+export const formatKey = (inputs: Inputs) => {
+  const { projectName, serverPath, file, branch } = inputs
   // Optionally, projects can have different paths on our server
   let serverLocation = serverPath ? serverPath : `latest/`
 
