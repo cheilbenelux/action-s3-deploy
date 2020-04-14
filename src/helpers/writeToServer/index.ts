@@ -42,6 +42,7 @@ export const writeToServer = (
     const files = buildFiles
       ? cherryPickFiles(buildFiles)
       : [...getAllFiles('js'), ...getAllFiles('css')]
+    console.log('the files are', files)
     console.log('3 and last in before the foreach')
     files.forEach((file) => {
       console.log('key', formatKey(projectName, path, file, staging))
