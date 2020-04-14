@@ -15,13 +15,13 @@ console.log('writing to server')
 const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
 
 // Get from secrets
-// const { accessKeyId, secretAccessKey } = require('./settings')
-const { accessKeyId, secretAccessKey } = process.env
+// const { ACCESSKEYID, secretAccessKey } = require('./settings')
+const { ACCESSKEYID, SECRETACCESSKEY } = process.env
 
 const s3 = new AWS.S3({
   endpoint,
-  accessKeyId,
-  secretAccessKey,
+  accessKeyId: ACCESSKEYID,
+  secretAccessKey: SECRETACCESSKEY,
 })
 
 export const writeToServer = (
