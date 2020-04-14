@@ -12,22 +12,25 @@ interface ProjectOptions {
 }
 console.log('writing to server')
 
-const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
-
 // Get from secrets
 // const { ACCESSKEYID, secretAccessKey } = require('./settings')
-const { ACCESSKEYID, SECRETACCESSKEY } = process.env
 
 export const writeToServer = (
   projectOptions: ProjectOptions,
   staging: boolean,
 ) => {
+  console.log('1')
   try {
     const { bucket, projectName, path, buildFiles } = projectOptions
     const streamOptions = {
       partSize: 10 * 1024 * 1024, // 10 MB
       queueSize: 10,
     }
+    console.log('2 in the try')
+
+    const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
+
+    const { ACCESSKEYID, SECRETACCESSKEY } = process.env
 
     const s3 = new AWS.S3({
       endpoint,
@@ -39,7 +42,7 @@ export const writeToServer = (
     const files = buildFiles
       ? cherryPickFiles(buildFiles)
       : [...getAllFiles('js'), ...getAllFiles('css')]
-
+    console.log('3 and last in before the foreach')
     files.forEach((file) => {
       console.log('key', formatKey(projectName, path, file, staging))
       const ContentType =
