@@ -5,9 +5,9 @@ import { getAllFiles, cherryPickFiles } from './getFiles'
 import { formatKey } from './formatKey'
 
 interface ProjectOptions {
-  Bucket: string
+  bucket: string
   projectName: string
-  serverPath: string
+  path: string
   buildFiles: string[]
 }
 
@@ -27,7 +27,7 @@ export const writeToServer = (
   projectOptions: ProjectOptions,
   staging: boolean,
 ) => {
-  const { Bucket, projectName, serverPath, buildFiles } = projectOptions
+  const { bucket, projectName, path, buildFiles } = projectOptions
   const streamOptions = {
     partSize: 10 * 1024 * 1024, // 10 MB
     queueSize: 10,
@@ -42,8 +42,8 @@ export const writeToServer = (
     const ContentType =
       file.type === 'css' ? 'text/css' : 'application/javascript'
     const params = {
-      Bucket,
-      Key: formatKey(projectName, serverPath, file, staging),
+      Bucket: bucket,
+      Key: formatKey(projectName, path, file, staging),
       Body: fs.createReadStream(file.path),
       ACL: 'public-read',
       ContentType,
