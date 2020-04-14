@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 // // import github from '@actions/github'
-// // import { writeToServer } from './helpers/writeToServer'
+import { writeToServer } from './helpers/writeToServer'
 import fs from 'fs'
 
 // Get project package.json
@@ -11,7 +11,7 @@ const packageInfo = projectJson
 
 // Get project specific settings
 const {
-  deploySettings: { bucket, serverPath: path, buildFiles },
+  deploySettings: { bucket, path, buildFiles },
   name: projectName,
 } = packageInfo
 
@@ -20,12 +20,13 @@ const {
 const run = async (): Promise<void> => {
   console.log('heyy')
   console.log(projectJson)
+  console.log(process.env.GITHUB_REF)
   // core.debug(projectJson)
 }
 
 try {
   run()
-  //   //   writeToServer()
+  // writeToServer({bucket, path, buildFiles, projectName}, false)
   //   //   // `who-to-greet` input defined in action metadata file
   //   //   // const nameToGreet = core.getInput('who-to-greet')
   //   //   // console.log(`Hello ${nameToGreet}!`)
