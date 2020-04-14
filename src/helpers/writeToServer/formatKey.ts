@@ -11,6 +11,7 @@ export const formatKey = (
   file: File,
   staging: boolean,
 ): string => {
+  console.log('making a key')
   // eg: 'src/serif-locator/latest/js/app.js`
   const newPath = staging ? `${serverPath}/staging` : serverPath
 
@@ -23,7 +24,7 @@ export const formatKey = (
     file.type +
     '/' +
     path.basename(file.path)
-
+  console.log('key made:', fullPath.replace(/([^:]\/)\/+/g, '$1'))
   // remove accidental double /'s
   return fullPath.replace(/([^:]\/)\/+/g, '$1')
 }
