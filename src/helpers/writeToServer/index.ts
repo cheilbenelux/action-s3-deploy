@@ -14,16 +14,24 @@ interface ProjectOptions {
 }
 
 // We want to be able to purge the cache of the CDN after an upload.
-const purgeCache = (bucketId: string, DOTOKEN: String, projectName: String) => {
+const purgeCache = async (
+  bucketId: string,
+  DOTOKEN: String,
+  projectName: String,
+) => {
   console.log('purging cache')
-  fetch(`https://api.digitalocean.com/v2/cdn/endpoints/${bucketId}/cache`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${DOTOKEN}`,
+  const res = await fetch(
+    `https://api.digitalocean.com/v2/cdn/endpoints/${bucketId}/cache`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${DOTOKEN}`,
+      },
+      body: JSON.stringify({ files: [`src/${projectName}/`] }),
     },
-    body: JSON.stringify({ files: [`src/${projectName}/`] }),
-  })
+  )
+  console.log(res)
 }
 
 export const writeToServer = async (
@@ -32,15 +40,13 @@ export const writeToServer = async (
 ) => {
   try {
     const { bucket, projectName, serverPath, buildFiles } = projectOptions
+
     const streamOptions = {
       partSize: 10 * 1024 * 1024, // 10 MB
       queueSize: 10,
     }
-
     const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
-
     const { ACCESSKEYID, SECRETACCESSKEY, SEBNBUCKETID, DOTOKEN } = process.env
-
     const s3 = new AWS.S3({
       endpoint,
       accessKeyId: ACCESSKEYID,
