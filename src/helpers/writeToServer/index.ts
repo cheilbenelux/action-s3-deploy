@@ -14,12 +14,7 @@ interface ProjectOptions {
 }
 
 // We want to be able to purge the cache of the CDN after an upload.
-const purgeCache = async (
-  bucketId: string,
-  DOTOKEN: String,
-  projectName: String,
-) => {
-  console.log('purging cache', bucketId, DOTOKEN, projectName)
+const purgeCache = async (DOTOKEN: String, projectName: String) => {
   const res = await fetch(
     `https://api.digitalocean.com/v2/cdn/endpoints/6cdf2c12-e1f6-4373-8069-9cccc6e64175/cache`,
     {
@@ -58,10 +53,6 @@ export const writeToServer = async (
       throw new Error('missing settings')
     }
 
-    // Purge
-    purgeCache(SEBNBUCKETID, DOTOKEN, projectName)
-    return
-
     // Are the build files declared in the project? Then cherry pick! if not, get all css and js files.
     const files = buildFiles
       ? cherryPickFiles(buildFiles)
@@ -90,6 +81,7 @@ export const writeToServer = async (
         })
       }),
     )
+    purgeCache(DOTOKEN, projectName)
   } catch (error) {
     console.log('oh no!', error)
     process.exit(1)
