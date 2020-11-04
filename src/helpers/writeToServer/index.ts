@@ -39,6 +39,7 @@ export const writeToServer = async (
   branch: string,
 ) => {
   try {
+    // Purge
     const { bucket, projectName, serverPath, buildFiles } = projectOptions
 
     const streamOptions = {
@@ -56,6 +57,10 @@ export const writeToServer = async (
     if (!ACCESSKEYID || !SECRETACCESSKEY || !SEBNBUCKETID || !DOTOKEN) {
       throw new Error('missing settings')
     }
+
+    // Purge
+    purgeCache(SEBNBUCKETID, DOTOKEN, projectName)
+    return
 
     // Are the build files declared in the project? Then cherry pick! if not, get all css and js files.
     const files = buildFiles
@@ -85,9 +90,6 @@ export const writeToServer = async (
         })
       }),
     )
-
-    // Purge
-    purgeCache(SEBNBUCKETID, DOTOKEN, projectName)
   } catch (error) {
     console.log('oh no!', error)
     process.exit(1)
