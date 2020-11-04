@@ -15,6 +15,7 @@ interface ProjectOptions {
 
 // We want to be able to purge the cache of the CDN after an upload.
 const purgeCache = (bucketId: string, DOTOKEN: String, projectName: String) => {
+  console.log('purging cache')
   fetch(`https://api.digitalocean.com/v2/cdn/endpoints/${bucketId}/cache`, {
     method: 'DELETE',
     headers: {
@@ -80,8 +81,7 @@ export const writeToServer = async (
     )
 
     // Purge
-    const res = await purgeCache(SEBNBUCKETID, DOTOKEN, projectName)
-    console.log('res', res)
+    purgeCache(SEBNBUCKETID, DOTOKEN, projectName)
   } catch (error) {
     console.log('oh no!', error)
     process.exit(1)
