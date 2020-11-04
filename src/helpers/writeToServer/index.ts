@@ -21,7 +21,7 @@ const purgeCache = async (
 ) => {
   console.log('purging cache', bucketId, DOTOKEN, projectName)
   const res = await fetch(
-    `https://api.digitalocean.com/v2/cdn/endpoints/${bucketId}/cache`,
+    `https://api.digitalocean.com/v2/cdn/endpoints/6cdf2c12-e1f6-4373-8069-9cccc6e64175/cache`,
     {
       method: 'DELETE',
       headers: {
