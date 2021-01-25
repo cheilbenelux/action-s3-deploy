@@ -11,6 +11,7 @@ interface ProjectOptions {
   projectName: string
   serverPath: string
   buildFiles: string[]
+  buildFolder: string
 }
 
 // We want to be able to purge the cache of the CDN after an upload.
@@ -35,7 +36,13 @@ export const writeToServer = async (
 ) => {
   try {
     // Purge
-    const { bucket, projectName, serverPath, buildFiles } = projectOptions
+    const {
+      bucket,
+      projectName,
+      serverPath,
+      buildFiles,
+      buildFolder,
+    } = projectOptions
 
     const streamOptions = {
       partSize: 10 * 1024 * 1024, // 10 MB
@@ -50,13 +57,13 @@ export const writeToServer = async (
     })
 
     if (!ACCESSKEYID || !SECRETACCESSKEY || !SEBNBUCKETID || !DOTOKEN) {
-      throw new Error('missing settings')
+      throw new Error('missing auth key')
     }
 
     // Are the build files declared in the project? Then cherry pick! if not, get all css and js files.
     const files = buildFiles
-      ? cherryPickFiles(buildFiles)
-      : [...getAllFiles('js'), ...getAllFiles('css')]
+      ? cherryPickFiles(buildFiles, buildFolder)
+      : [...getAllFiles('js', buildFolder), ...getAllFiles('css', buildFolder)]
 
     await Promise.all(
       files.map((file) => {

@@ -1,10 +1,5 @@
 const path = require('path')
 
-// type File = {
-//   path: string
-//   type: 'css' | 'js'
-// }
-
 interface Inputs {
   projectName: string
   serverPath?: string
@@ -18,11 +13,13 @@ interface Inputs {
 export const formatKey = (inputs: Inputs) => {
   const { projectName, serverPath, file, branch } = inputs
   // Optionally, projects can have different paths on our server
-  let serverLocation = serverPath ? serverPath : `latest/`
+  const serverLocation = serverPath ? serverPath : `latest/`
 
   // eg: 'src/serif-locator/latest/js/app.js`
   const newPath =
-    branch === 'master' ? serverLocation : `${serverLocation}/${branch}`
+    branch === ('master' || 'main')
+      ? serverLocation
+      : `${serverLocation}/${branch}`
 
   const fullPath: string =
     `src/` +
@@ -32,8 +29,8 @@ export const formatKey = (inputs: Inputs) => {
     '/' +
     file.type +
     '/' +
-    path.basename(file.path)
-  console.log('key made:', fullPath.replace(/([^:]\/)\/+/g, '$1'))
+    path.basename(file.path).replace(/([^:]\/)\/+/g, '$1')
+  console.log('key made:', fullPath)
   // remove accidental double /'s
-  return fullPath.replace(/([^:]\/)\/+/g, '$1')
+  return fullPath
 }

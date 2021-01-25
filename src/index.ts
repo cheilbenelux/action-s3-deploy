@@ -14,12 +14,15 @@ const branch = process.env.GITHUB_REF
 
 // Get project specific settings
 const {
-  deploySettings: { bucket, path: serverPath, buildFiles },
+  deploySettings: { bucket, path: serverPath, buildFiles, buildFolder },
   name: projectName,
 } = packageInfo
 
 try {
-  writeToServer({ bucket, serverPath, buildFiles, projectName }, branch)
+  writeToServer(
+    { bucket, serverPath, buildFiles, projectName, buildFolder },
+    branch,
+  )
 } catch (error) {
   core.setFailed(error.message)
 }

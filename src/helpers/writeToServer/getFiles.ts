@@ -1,20 +1,26 @@
 const fs = require('file-system')
 
 // gets all the buildfiles
-export const getAllFiles = (type: 'css' | 'js') => {
+export const getAllFiles = (type: 'css' | 'js', buildFolder?: string) => {
+  const _buildFolder = buildFolder || 'dist'
   try {
     return fs
-      .readdirSync(`dist/${type}/`)
-      .map((fileName: string) => ({ path: `dist/${type}/${fileName}`, type }))
+      .readdirSync(`${_buildFolder}/${type}/`)
+      .map((fileName: string) => ({
+        path: `${_buildFolder}/${type}/${fileName}`,
+        type,
+      }))
   } catch (err) {
     return []
   }
 }
 
 // Used when specific files are listed in the package.json of the project
-export const cherryPickFiles = (fileNames: string[]) => {
+export const cherryPickFiles = (fileNames: string[], buildFolder?: string) => {
+  const _buildFolder = buildFolder || 'dist'
+
   return fileNames.map((fileName) => ({
-    path: `dist/${fileName}`,
+    path: `${_buildFolder}/${fileName}`,
     type: fileName.split('.')[1],
   }))
 }
