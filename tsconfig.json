@@ -3,7 +3,7 @@
     /* Enable incremental compilation */
     "module": "commonjs", // add this
 
-    "outDir": "./lib",
+    "outDir": "./dist",
 
     "target": "es2015",
 
