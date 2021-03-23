@@ -49,14 +49,14 @@ export const writeToServer = async (
       queueSize: 10,
     }
     const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
-    const { ACCESSKEYID, SECRETACCESSKEY, SEBNBUCKETID, DOTOKEN } = process.env
+    const { ACCESSKEYID, SECRETACCESSKEY } = process.env
     const s3 = new AWS.S3({
       endpoint,
       accessKeyId: ACCESSKEYID,
       secretAccessKey: SECRETACCESSKEY,
     })
 
-    if (!ACCESSKEYID || !SECRETACCESSKEY || !SEBNBUCKETID || !DOTOKEN) {
+    if (!ACCESSKEYID || !SECRETACCESSKEY) {
       throw new Error('missing auth key')
     }
 
@@ -88,7 +88,7 @@ export const writeToServer = async (
         })
       }),
     )
-    purgeCache(DOTOKEN, projectName)
+    // purgeCache(DOTOKEN, projectName)
   } catch (error) {
     console.log('oh no!', error)
     process.exit(1)
