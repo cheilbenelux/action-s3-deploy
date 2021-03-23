@@ -9,7 +9,7 @@
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
-    "pack": "ncc build lib",
+    "pack": "ncc build dist",
     "test": "mocha -r ts-node/register test/*.ts",
     "all": "npm run build && npm run pack && npm test"
   },
