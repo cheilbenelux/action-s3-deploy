@@ -13,7 +13,7 @@ interface Inputs {
 export const formatKey = (inputs: Inputs) => {
   const { projectName, serverPath, file, branch } = inputs
   // Optionally, projects can have different paths on our server
-  const serverLocation = serverPath ? serverPath : `latest/`
+  const serverLocation = serverPath ? serverPath : `latest`
 
   // eg: 'src/serif-locator/latest/js/app.js`
   const newPath =

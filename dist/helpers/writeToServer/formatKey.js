@@ -5,7 +5,7 @@ const path = require('path');
 exports.formatKey = (inputs) => {
     const { projectName, serverPath, file, branch } = inputs;
     // Optionally, projects can have different paths on our server
-    const serverLocation = serverPath ? serverPath : `latest/`;
+    const serverLocation = serverPath ? serverPath : `latest`;
     // eg: 'src/serif-locator/latest/js/app.js`
     const newPath = branch === ('master' || 'main')
         ? serverLocation
