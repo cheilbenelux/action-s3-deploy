@@ -49,7 +49,7 @@ export const writeToServer = async (
       queueSize: 10,
     }
     const endpoint: any = new AWS.Endpoint(`ams3.digitaloceanspaces.com`)
-    const { ACCESSKEYID, SECRETACCESSKEY } = process.env
+    const { ACCESSKEYID, SECRETACCESSKEY, DOTOKEN } = process.env
     const s3 = new AWS.S3({
       endpoint,
       accessKeyId: ACCESSKEYID,
@@ -88,7 +88,7 @@ export const writeToServer = async (
         })
       }),
     )
-    // purgeCache(DOTOKEN, projectName)
+    if (DOTOKEN) purgeCache(DOTOKEN, projectName)
   } catch (error) {
     console.log('oh no!', error)
     process.exit(1)
