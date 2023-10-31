@@ -39,7 +39,7 @@ exports.writeToServer = (projectOptions, branch) => __awaiter(void 0, void 0, vo
             queueSize: 10,
         };
         const endpoint = new aws_sdk_1.default.Endpoint(`ams3.digitaloceanspaces.com`);
-        const { ACCESSKEYID, SECRETACCESSKEY } = process.env;
+        const { ACCESSKEYID, SECRETACCESSKEY, DOTOKEN } = process.env;
         const s3 = new aws_sdk_1.default.S3({
             endpoint,
             accessKeyId: ACCESSKEYID,
@@ -71,7 +71,8 @@ exports.writeToServer = (projectOptions, branch) => __awaiter(void 0, void 0, vo
                 }
             });
         }));
-        // purgeCache(DOTOKEN, projectName)
+        if (DOTOKEN)
+            purgeCache(DOTOKEN, projectName);
     }
     catch (error) {
         console.log('oh no!', error);

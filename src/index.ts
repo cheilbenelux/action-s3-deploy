@@ -17,10 +17,17 @@ const {
   deploySettings: { bucket, path: serverPath, buildFiles, buildFolder },
   name: projectName,
 } = packageInfo
+const buildFolderUpdated = branch === 'staging' ? 'dist/staging' : 'dist'
 
 try {
   writeToServer(
-    { bucket, serverPath, buildFiles, projectName, buildFolder },
+    {
+      bucket,
+      serverPath,
+      buildFiles,
+      projectName,
+      buildFolder: buildFolderUpdated,
+    },
     branch,
   )
 } catch (error) {
