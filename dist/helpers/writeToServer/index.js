@@ -39,7 +39,7 @@ exports.writeToServer = (projectOptions, branch) => __awaiter(void 0, void 0, vo
             queueSize: 10,
         };
         const endpoint = new aws_sdk_1.default.Endpoint(`ams3.digitaloceanspaces.com`);
-        const { ACCESSKEYID, SECRETACCESSKEY } = process.env;
+        const { ACCESSKEYID, SECRETACCESSKEY, DOTOKEN } = process.env;
         const s3 = new aws_sdk_1.default.S3({
             endpoint,
             accessKeyId: ACCESSKEYID,
@@ -48,6 +48,7 @@ exports.writeToServer = (projectOptions, branch) => __awaiter(void 0, void 0, vo
         if (!ACCESSKEYID || !SECRETACCESSKEY) {
             throw new Error('missing auth key');
         }
+        const buildFolderUpdated = branch === 'staging' ? 'dist/staging' : 'dist';
         // Are the build files declared in the project? Then cherry pick! if not, get all css and js files.
         const files = buildFiles
             ? getFiles_1.cherryPickFiles(buildFiles, buildFolder)
@@ -71,7 +72,8 @@ exports.writeToServer = (projectOptions, branch) => __awaiter(void 0, void 0, vo
                 }
             });
         }));
-        // purgeCache(DOTOKEN, projectName)
+        if (DOTOKEN)
+            purgeCache(DOTOKEN, projectName);
     }
     catch (error) {
         console.log('oh no!', error);

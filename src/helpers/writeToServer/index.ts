@@ -60,6 +60,7 @@ export const writeToServer = async (
       throw new Error('missing auth key')
     }
 
+    const buildFolderUpdated = branch === 'staging' ? 'dist/staging' : 'dist'
     // Are the build files declared in the project? Then cherry pick! if not, get all css and js files.
     const files = buildFiles
       ? cherryPickFiles(buildFiles, buildFolder)
